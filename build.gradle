@@ -1,0 +1,73 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.2.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id 'jacoco'
+}
+
+group = 'com.github'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	implementation (
+			['org.springframework.boot:spring-boot-starter-web'],
+			['com.fasterxml.jackson.core:jackson-core:2.13.0'],
+			['com.fasterxml.jackson.core:jackson-databind:2.13.0'],
+			['com.fasterxml.jackson.core:jackson-annotations:2.13.0'],
+			['com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0'],
+			['com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'],
+			['commons-io:commons-io:2.11.0'],
+			['com.google.guava:guava:31.0.1-jre'],
+	)
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	testImplementation(
+			['org.assertj:assertj-core:3.21.0'],
+			['io.rest-assured:rest-assured:4.2.0'],
+			['io.rest-assured:json-path:4.2.0'],
+			['io.rest-assured:spring-mock-mvc:4.2.0'],
+			['io.rest-assured:xml-path:4.2.0'],
+			['org.awaitility:awaitility:4.1.1']
+	)
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+	testLogging {
+		events "PASSED", "FAILED", "SKIPPED", "STANDARD_ERROR"
+	}
+
+	jacoco {
+		excludes = [
+				'info.coelho.etl.service.AssessmentApplication'
+		]
+	}
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+	afterEvaluate {
+		getClassDirectories().setFrom(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: [
+							'**/info/coelho/etl/service/AssessmentApplication.class'
+					]
+			)
+		})
+	}
+}
