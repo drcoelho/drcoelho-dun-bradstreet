@@ -12,7 +12,7 @@ class ActivityParserFactoryTest {
     @Test
     void when_contentType_is_unknown_should_throw_exception() {
 
-        List<ActivityParser> parsers = Arrays.asList(new ActivityParserXML(new ActivityXmlParser()), new ActivityParserJson());
+        List<ActivityParser> parsers = Arrays.asList(new ActivityParserXML(), new ActivityParserJson());
         ActivityParserFactory factory = new ActivityParserFactory(parsers);
 
         Assertions.assertThatThrownBy(() -> factory.getInstance("application/text"))
