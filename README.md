@@ -45,6 +45,8 @@ unless it was justified to address any of the requirements.
 ## Metrics
 
 ### Code Coverage
+
+Code Coverage:
 ![code coverage][doc/code-coverage.png]
 
 ### Gatling Load Test
