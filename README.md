@@ -44,13 +44,14 @@ unless it was justified to address any of the requirements.
 
 ## Metrics
 
-### Code Coverage
+### Code Coverage Metrics
 
-Code Coverage:
-![code coverage][doc/code-coverage.png]
+![code coverage](doc/code-coverage.png)
 
-### Gatling Load Test
-Gatling metrics: ![metrics-loadtest](doc/metrics-loadtest/index.html)
+### Gatling Load Test Metrics
+![load indicators](doc/indicators.png)
+![load request per second](doc/requests-per-second.png)
+
 ```
 ================================================================================
 ---- Global Information --------------------------------------------------------
